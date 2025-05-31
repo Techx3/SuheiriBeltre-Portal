@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate-key="pageTitle">Suheiri Beltre - Portafolio Profesional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Estilos personalizados adicionales y para mantener algunos efectos originales */
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #374151; /* gray-700 */
+        }
+
+        /* Estilo para la foto de perfil */
+        .profile-photo {
+            width: 128px; /* md:w-40 */
+            height: 128px; /* md:h-40 */
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1.5rem; /* mb-6 */
+            border-width: 4px;
+            border-color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .profile-photo {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; /* Ajustado para que esté debajo del padding */
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #EC4899, #8B5CF6); /* pink-500 to violet-500 */
+            border-radius: 2px;
+        }
+
+        .experience-item, .education-item {
+            border-left-width: 4px;
+            border-color: #8B5CF6; /* violet-500 */
+            transition: all 0.3s ease;
+        }
+        .experience-item:hover, .education-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            transition: all 0.3s ease;
+        }
+        .skill-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(129, 86, 230, 0.4);
+        }
+
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -10; /* Detrás de todo */
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .floating-circle:nth-child(1) { width: 80px; height: 80px; top: 15%; left: 5%; animation-delay: 0s; }
+        .floating-circle:nth-child(2) { width: 120px; height: 120px; top: 55%; right: 8%; animation-delay: 3s; }
+        .floating-circle:nth-child(3) { width: 60px; height: 60px; bottom: 15%; left: 25%; animation-delay: 6s; }
+        .floating-circle:nth-child(4) { width: 90px; height: 90px; top: 20%; right: 20%; animation-delay: 1s; }
+        .floating-circle:nth-child(5) { width: 70px; height: 70px; bottom: 30%; left: 45%; animation-delay: 4s; }
+
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            50% { transform: translateY(-25px) rotate(180deg) scale(1.1); }
+        }
+        
+        /* Animación de entrada para secciones */
+        .section-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Estilo para el selector de idioma */
+        .language-switcher button {
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+        .language-switcher button.active {
+            background-color: rgba(255, 255, 255, 0.4);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen">
+    <div class="floating-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <div class="language-switcher fixed top-4 right-4 z-50">
+        <button id="lang-es" class="px-4 py-2 text-white rounded-l-md hover:bg-opacity-30 transition-colors">ES</button>
+        <button id="lang-en" class="px-4 py-2 text-white rounded-r-md hover:bg-opacity-30 transition-colors active">EN</button>
+    </div>
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+        <header class="bg-white/90 backdrop-blur-md shadow-2xl rounded-xl p-6 md:p-10 mb-8 text-center section-animate">
+            <div>
+                <img src="https://media.licdn.com/dms/image/v2/D4E03AQGK30gZwWEKOw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1707354957369?e=1753920000&v=beta&t=VrRcF_n_iKCJP1pdEL9D8l-qb8-txjh0AEXoa1JDbow" alt="Foto de Suheiri Beltre" class="profile-photo" id="profileImage">
+            </div>
+            <h1 class="name text-3xl md:text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-pink-600" data-translate-key="name">Suheiri Beltre de los Santos</h1>
+            <p class="title text-lg md:text-xl text-gray-600 mb-6" data-translate-key="jobTitle">Pega System Architect | Especialista en Automatización Bancaria</p>
+            
+            <div class="contact-info flex flex-wrap justify-center gap-4 md:gap-6 text-sm md:text-base">
+                <a href="mailto:Suheiri.Beltre@hotmail.com" class="contact-item flex items-center gap-2 text-gray-700 hover:text-violet-600 transition-colors py-2 px-4 bg-gray-100/70 rounded-full shadow-sm hover:shadow-md">
+                    <i class="fas fa-envelope"></i>
+                    <span data-translate-key="email">Suheiri.Beltre@hotmail.com</span>
+                </a>
+                <div class="contact-item flex items-center gap-2 text-gray-700 py-2 px-4 bg-gray-100/70 rounded-full shadow-sm">
+                    <i class="fas fa-phone-alt"></i>
+                    <span data-translate-key="phone">+1 (829) 970-5652</span>
+                </div>
+                <a href="https://www.linkedin.com/in/suheiri-beltre/" target="_blank" class="contact-item flex items-center gap-2 text-gray-700 hover:text-violet-600 transition-colors py-2 px-4 bg-gray-100/70 rounded-full shadow-sm hover:shadow-md">
+                    <i class="fab fa-linkedin"></i>
+                    <span data-translate-key="linkedin">LinkedIn</span>
+                </a>
+                <div class="contact-item flex items-center gap-2 text-gray-700 py-2 px-4 bg-gray-100/70 rounded-full shadow-sm">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span data-translate-key="location">Santo Domingo, D.N., República Dominicana</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="section bg-white/90 backdrop-blur-md shadow-xl rounded-xl p-6 md:p-8 mb-8 section-animate">
+            <h2 class="section-title text-2xl md:text-3xl font-bold mb-6 pb-3 relative" data-translate-key="summaryTitle"><i class="fas fa-user-tie mr-2 text-violet-500"></i>Resumen Profesional</h2>
+            <p class="description text-gray-700 leading-relaxed" data-translate-key="summaryText">
+                Pega System Architect con amplia experiencia en el sector financiero, especializado en el diseño y desarrollo de soluciones empresariales automatizadas. Con más de 6 años de trayectoria progresiva desde Encargado de Tecnología hasta Arquitecto de Sistemas, he liderado equipos tecnológicos y desarrollado aplicaciones críticas en instituciones bancarias como BHD y BanReservas. Experto en automatización de procesos de negocio (BPM), desarrollo .NET y optimización de sistemas ERP/CRM/SAP, con un historial comprobado en la reducción de tiempos de respuesta y mejora de eficiencia operativa.
+            </p>
+        </section>
+
+        <section class="section bg-white/90 backdrop-blur-md shadow-xl rounded-xl p-6 md:p-8 mb-8 section-animate">
+            <h2 class="section-title text-2xl md:text-3xl font-bold mb-8 pb-3 relative" data-translate-key="experienceTitle"><i class="fas fa-briefcase mr-2 text-violet-500"></i>Experiencia Profesional</h2>
+            
+            <div class="experience-item bg-violet-50/50 p-6 rounded-r-lg mb-6">
+                <h3 class="job-title text-xl font-semibold text-gray-800 mb-1" data-translate-key="exp1Title">Pega System Architect</h3>
+                <p class="company text-md text-violet-600 font-medium mb-1" data-translate-key="exp1Company">Banco BHD</p>
+                <p class="date text-sm text-gray-500 mb-3" data-translate-key="exp1Date">Junio 2021 - Actualidad</p>
+                <ul class="description text-gray-700 list-disc list-inside space-y-1 pl-2" data-translate-key="exp1Desc">
+                    <li>Diseño y arquitectura de soluciones empresariales utilizando la plataforma Pega</li>
+                    <li>Desarrollo de aplicaciones de gestión de procesos de negocio (BPM) para el sector bancario</li>
+                    <li>Implementación de flujos de trabajo automatizados y reglas de negocio complejas</li>
+                    <li>Colaboración con equipos multidisciplinarios para la transformación digital del banco</li>
+                    <li>Optimización de procesos operativos mediante automatización inteligente</li>
+                    <li>Análisis de requerimientos funcionales y diseño de soluciones técnicas escalables</li>
+                </ul>
+            </div>
+
+            <div class="experience-item bg-violet-50/50 p-6 rounded-r-lg mb-6">
+                <h3 class="job-title text-xl font-semibold text-gray-800 mb-1" data-translate-key="exp2Title">Analista Desarrollador de Aplicaciones Financieras</h3>
+                <p class="company text-md text-violet-600 font-medium mb-1" data-translate-key="exp2Company">BanReservas - Metaconxept</p>
+                <p class="date text-sm text-gray-500 mb-3" data-translate-key="exp2Date">Marzo 2019 - Junio 2021</p>
+                <ul class="description text-gray-700 list-disc list-inside space-y-1 pl-2" data-translate-key="exp2Desc">
+                    <li>Levantamiento de requerimientos del usuario y formalización de propuestas técnicas</li>
+                    <li>Desarrollo de aplicaciones y mejoras en C#.NET y VB.NET</li>
+                    <li>Desarrollo y optimización de Servicios de Windows</li>
+                    <li>Manejo avanzado de aplicaciones en SQL Server y Oracle SQL Developer</li>
+                    <li>Creación de documentación técnica: control de cambios, pruebas internas, pase a producción</li>
+                    <li>Elaboración de diagramas de procesos para aplicaciones desarrolladas</li>
+                    <li>Creación de reportes mediante SSRS (SQL Server Reporting Services)</li>
+                </ul>
+            </div>
+
+            <div class="experience-item bg-violet-50/50 p-6 rounded-r-lg">
+                <h3 class="job-title text-xl font-semibold text-gray-800 mb-1" data-translate-key="exp3Title">Encargado de Tecnología</h3>
+                <p class="company text-md text-violet-600 font-medium mb-1" data-translate-key="exp3Company">Oncoserv Santo Domingo</p>
+                <p class="date text-sm text-gray-500 mb-3" data-translate-key="exp3Date">Noviembre 2014 - Febrero 2019</p>
+                <ul class="description text-gray-700 list-disc list-inside space-y-1 pl-2" data-translate-key="exp3Desc">
+                    <li>Supervisión y liderazgo de equipos de Desarrollo y Soporte técnico</li>
+                    <li>Gestión integral del sistema tecnológico institucional, reduciendo tiempos de respuesta en más del 50%</li>
+                    <li>Análisis y validación de sistemas empresariales (ERP, CRM, SAP), logrando una reducción del 30% en tiempos de respuesta</li>
+                    <li>Automatización de procesos administrativos mediante reportes automatizados</li>
+                    <li>Optimización de la presentación de informaciones para administradores de manera más rápida y eficiente</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section bg-white/90 backdrop-blur-md shadow-xl rounded-xl p-6 md:p-8 mb-8 section-animate">
+            <h2 class="section-title text-2xl md:text-3xl font-bold mb-8 pb-3 relative" data-translate-key="educationTitle"><i class="fas fa-graduation-cap mr-2 text-violet-500"></i>Educación</h2>
+            
+            <div class="education-item bg-violet-50/50 p-6 rounded-r-lg mb-6">
+                <h3 class="degree-title text-xl font-semibold text-gray-800 mb-1" data-translate-key="edu1Title">Licenciatura en Informática</h3>
+                <p class="institution text-md text-violet-600 font-medium mb-1" data-translate-key="edu1Institution">Universidad Autónoma de Santo Domingo (UASD)</p>
+                <p class="date text-sm text-gray-500 mb-3" data-translate-key="edu1Location">Santo Domingo, D.N., República Dominicana</p>
+                <p class="description text-gray-700" data-translate-key="edu1Desc">
+                    Formación sólida en fundamentos de informática, programación y gestión de sistemas tecnológicos.
+                </p>
+            </div>
+
+            <div class="education-item bg-violet-50/50 p-6 rounded-r-lg mb-6">
+                <h3 class="degree-title text-xl font-semibold text-gray-800 mb-1" data-translate-key="edu2Title">Técnico en Inglés</h3>
+                <p class="institution text-md text-violet-600 font-medium mb-1" data-translate-key="edu2Institution">English Immersion Program (MESCyT)</p>
+                <p class="date text-sm text-gray-500 mb-3" data-translate-key="edu2Location">San Juan de la Maguana, República Dominicana</p>
+                <p class="description text-gray-700" data-translate-key="edu2Desc">
+                    Programa de inmersión en inglés técnico para profesionales en tecnología.
+                </p>
+            </div>
+
+            <div class="education-item bg-violet-50/50 p-6 rounded-r-lg">
+                <h3 class="degree-title text-xl font-semibold text-gray-800 mb-1" data-translate-key="edu3Title">Técnico en Informática</h3>
+                <p class="institution text-md text-violet-600 font-medium mb-1" data-translate-key="edu3Institution">Instituto Técnico Comercial (INCOTE)</p>
+                <p class="date text-sm text-gray-500 mb-3" data-translate-key="edu3Location">San Juan de la Maguana, República Dominicana</p>
+                <p class="description text-gray-700" data-translate-key="edu3Desc">
+                    Fundamentos técnicos en informática y sistemas computacionales.
+                </p>
+            </div>
+        </section>
+
+        <section class="section bg-white/90 backdrop-blur-md shadow-xl rounded-xl p-6 md:p-8 mb-8 section-animate">
+            <h2 class="section-title text-2xl md:text-3xl font-bold mb-8 pb-3 relative" data-translate-key="skillsTitle"><i class="fas fa-cogs mr-2 text-violet-500"></i>Habilidades y Competencias</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="skill-category bg-violet-50/50 p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3" data-translate-key="skillCat1">Plataformas Especializadas</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill1_1">Pega Platform</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill1_2">Pega BPM</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill1_3">ERP/CRM/SAP</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill1_4">Business Process Management</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill1_5">Workflow Automation</span>
+                    </div>
+                </div>
+
+                <div class="skill-category bg-violet-50/50 p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3" data-translate-key="skillCat2">Lenguajes de Programación</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill2_1">C#.NET</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill2_2">VB.NET</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill2_3">C/C++</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill2_4">Java</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill2_5">Visual Basic</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill2_6">PHP</span>
+                    </div>
+                </div>
+
+                <div class="skill-category bg-violet-50/50 p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3" data-translate-key="skillCat3">Bases de Datos y Herramientas</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill3_1">SQL Server</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill3_2">Oracle SQL Developer</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill3_3">Firebird DBA</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill3_4">SSRS</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill3_5">HTML</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill3_6">WordPress</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category bg-violet-50/50 p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3" data-translate-key="skillCat4">Sistemas y Infraestructura</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill4_1">Windows Server 2008</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill4_2">Active Directory</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill4_3">DHCP</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill4_4">Terminal Service</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill4_5">Server Manager</span>
+                    </div>
+                </div>
+
+                <div class="skill-category bg-violet-50/50 p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3" data-translate-key="skillCat5">Competencias Profesionales</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill5_1">Liderazgo de Equipos</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill5_2">Resolución de Problemas</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill5_3">Trabajo en Equipo</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill5_4">Iniciativa</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill5_5">Autonomía</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill5_6">Scrum Foundation</span>
+                    </div>
+                </div>
+
+                <div class="skill-category bg-violet-50/50 p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3" data-translate-key="skillCat6">Idiomas</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill6_1">Español (Nativo)</span>
+                        <span class="skill-tag text-white py-1 px-3 rounded-full text-sm" data-translate-key="skill6_2">Inglés (Técnico Avanzado)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section text-center bg-gradient-to-r from-violet-600 to-pink-600 text-white rounded-xl p-8 md:p-12 section-animate">
+            <h2 class="cta-title text-2xl md:text-3xl font-bold mb-4" data-translate-key="ctaTitle">¿Interesado en colaborar?</h2>
+            <p class="cta-text text-lg mb-8 opacity-90" data-translate-key="ctaText">
+                Estoy siempre abierta a nuevas oportunidades y proyectos desafiantes. 
+                ¡Conectemos y exploremos cómo puedo aportar valor a tu organización!
+            </p>
+            <div class="cta-buttons flex flex-wrap justify-center gap-4">
+                <a href="mailto:Suheiri.Beltre@hotmail.com" class="cta-button bg-white/20 hover:bg-white/30 text-white py-3 px-6 rounded-full font-semibold backdrop-blur-sm" data-translate-key="ctaEmail">Enviar Email</a>
+                <a href="https://www.linkedin.com/in/suheiri-beltre/" target="_blank" class="cta-button bg-white/20 hover:bg-white/30 text-white py-3 px-6 rounded-full font-semibold backdrop-blur-sm" data-translate-key="ctaLinkedIn">Conectar en LinkedIn</a>
+                <a href="https://drive.google.com/uc?export=download&id=18dqNmcyXEie_oAH21QyaewbDnbsNfr-a" id="download-cv" target="_blank" rel="noopener noreferrer" class="cta-button bg-white/20 hover:bg-white/30 text-white py-3 px-6 rounded-full font-semibold backdrop-blur-sm" data-translate-key="ctaCV">Descargar CV</a>
+            </div>
+        </section>
+
+        <footer class="text-center py-8 text-white/70 text-sm section-animate">
+            <p data-translate-key="footerText">&copy; 2025 Suheiri Beltre. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        const translations = {
+            es: {
+                pageTitle: "Suheiri Beltre - Portafolio Profesional",
+                name: "Suheiri Beltre de los Santos",
+                jobTitle: "Pega System Architect | Especialista en Automatización Bancaria",
+                email: "Suheiri.Beltre@hotmail.com",
+                phone: "+1 (829) 970-5652",
+                linkedin: "LinkedIn",
+                location: "Santo Domingo, D.N., República Dominicana",
+                summaryTitle: "Resumen Profesional",
+                summaryText: "Pega System Architect con amplia experiencia en el sector financiero, especializado en el diseño y desarrollo de soluciones empresariales automatizadas. Con más de 6 años de trayectoria progresiva desde Encargado de Tecnología hasta Arquitecto de Sistemas, he liderado equipos tecnológicos y desarrollado aplicaciones críticas en instituciones bancarias como BHD y BanReservas. Experto en automatización de procesos de negocio (BPM), desarrollo .NET y optimización de sistemas ERP/CRM/SAP, con un historial comprobado en la reducción de tiempos de respuesta y mejora de eficiencia operativa.",
+                experienceTitle: "Experiencia Profesional",
+                exp1Title: "Pega System Architect",
+                exp1Company: "Banco BHD",
+                exp1Date: "Junio 2021 - Actualidad",
+                exp1Desc: `<li>Diseño y arquitectura de soluciones empresariales utilizando la plataforma Pega</li>
+                           <li>Desarrollo de aplicaciones de gestión de procesos de negocio (BPM) para el sector bancario</li>
+                           <li>Implementación de flujos de trabajo automatizados y reglas de negocio complejas</li>
+                           <li>Colaboración con equipos multidisciplinarios para la transformación digital del banco</li>
+                           <li>Optimización de procesos operativos mediante automatización inteligente</li>
+                           <li>Análisis de requerimientos funcionales y diseño de soluciones técnicas escalables</li>`,
+                exp2Title: "Analista Desarrollador de Aplicaciones Financieras",
+                exp2Company: "BanReservas - Metaconxept",
+                exp2Date: "Marzo 2019 - Junio 2021",
+                exp2Desc: `<li>Levantamiento de requerimientos del usuario y formalización de propuestas técnicas</li>
+                           <li>Desarrollo de aplicaciones y mejoras en C#.NET y VB.NET</li>
+                           <li>Desarrollo y optimización de Servicios de Windows</li>
+                           <li>Manejo avanzado de aplicaciones en SQL Server y Oracle SQL Developer</li>
+                           <li>Creación de documentación técnica: control de cambios, pruebas internas, pase a producción</li>
+                           <li>Elaboración de diagramas de procesos para aplicaciones desarrolladas</li>
+                           <li>Creación de reportes mediante SSRS (SQL Server Reporting Services)</li>`,
+                exp3Title: "Encargado de Tecnología",
+                exp3Company: "Oncoserv Santo Domingo",
+                exp3Date: "Noviembre 2014 - Febrero 2019",
+                exp3Desc: `<li>Supervisión y liderazgo de equipos de Desarrollo y Soporte técnico</li>
+                           <li>Gestión integral del sistema tecnológico institucional, reduciendo tiempos de respuesta en más del 50%</li>
+                           <li>Análisis y validación de sistemas empresariales (ERP, CRM, SAP), logrando una reducción del 30% en tiempos de respuesta</li>
+                           <li>Automatización de procesos administrativos mediante reportes automatizados</li>
+                           <li>Optimización de la presentación de informaciones para administradores de manera más rápida y eficiente</li>`,
+                educationTitle: "Educación",
+                edu1Title: "Licenciatura en Informática",
+                edu1Institution: "Universidad Autónoma de Santo Domingo (UASD)",
+                edu1Location: "Santo Domingo, D.N., República Dominicana",
+                edu1Desc: "Formación sólida en fundamentos de informática, programación y gestión de sistemas tecnológicos.",
+                edu2Title: "Técnico en Inglés",
+                edu2Institution: "English Immersion Program (MESCyT)",
+                edu2Location: "San Juan de la Maguana, República Dominicana",
+                edu2Desc: "Programa de inmersión en inglés técnico para profesionales en tecnología.",
+                edu3Title: "Técnico en Informática",
+                edu3Institution: "Instituto Técnico Comercial (INCOTE)",
+                edu3Location: "San Juan de la Maguana, República Dominicana",
+                edu3Desc: "Fundamentos técnicos en informática y sistemas computacionales.",
+                skillsTitle: "Habilidades y Competencias",
+                skillCat1: "Plataformas Especializadas",
+                skill1_1: "Pega Platform", skill1_2: "Pega BPM", skill1_3: "ERP/CRM/SAP", skill1_4: "Business Process Management", skill1_5: "Workflow Automation",
+                skillCat2: "Lenguajes de Programación",
+                skill2_1: "C#.NET", skill2_2: "VB.NET", skill2_3: "C/C++", skill2_4: "Java", skill2_5: "Visual Basic", skill2_6: "PHP",
+                skillCat3: "Bases de Datos y Herramientas",
+                skill3_1: "SQL Server", skill3_2: "Oracle SQL Developer", skill3_3: "Firebird DBA", skill3_4: "SSRS", skill3_5: "HTML", skill3_6: "WordPress",
+                skillCat4: "Sistemas y Infraestructura",
+                skill4_1: "Windows Server 2008", skill4_2: "Active Directory", skill4_3: "DHCP", skill4_4: "Terminal Service", skill4_5: "Server Manager",
+                skillCat5: "Competencias Profesionales",
+                skill5_1: "Liderazgo de Equipos", skill5_2: "Resolución de Problemas", skill5_3: "Trabajo en Equipo", skill5_4: "Iniciativa", skill5_5: "Autonomía", skill5_6: "Scrum Foundation",
+                skillCat6: "Idiomas",
+                skill6_1: "Español (Nativo)", skill6_2: "Inglés (Técnico Avanzado)",
+                ctaTitle: "¿Interesado en colaborar?",
+                ctaText: "Estoy siempre abierta a nuevas oportunidades y proyectos desafiantes. ¡Conectemos y exploremos cómo puedo aportar valor a tu organización!",
+                ctaEmail: "Enviar Email",
+                ctaLinkedIn: "Conectar en LinkedIn",
+                ctaCV: "Descargar CV", 
+                footerText: "© 2025 Suheiri Beltre. Todos los derechos reservados." // Actualizado a 2025
+            },
+            en: {
+                pageTitle: "Suheiri Beltre - Professional Portfolio",
+                name: "Suheiri Beltre de los Santos",
+                jobTitle: "Pega System Architect | Banking Automation Specialist",
+                email: "Suheiri.Beltre@hotmail.com",
+                phone: "+1 (829) 970-5652",
+                linkedin: "LinkedIn",
+                location: "Santo Domingo, D.N., Dominican Republic",
+                summaryTitle: "Professional Summary",
+                summaryText: "Pega System Architect with extensive experience in the financial sector, specializing in the design and development of automated business solutions. With over 6 years of progressive experience from Technology Manager to Systems Architect, I have led technology teams and developed critical applications in banking institutions such as BHD and BanReservas. Expert in Business Process Management (BPM), .NET development, and optimization of ERP/CRM/SAP systems, with a proven track record in reducing response times and improving operational efficiency.",
+                experienceTitle: "Professional Experience",
+                exp1Title: "Pega System Architect",
+                exp1Company: "Banco BHD",
+                exp1Date: "June 2021 - Present",
+                exp1Desc: `<li>Design and architecture of business solutions using the Pega platform</li>
+                           <li>Development of Business Process Management (BPM) applications for the banking sector</li>
+                           <li>Implementation of automated workflows and complex business rules</li>
+                           <li>Collaboration with multidisciplinary teams for the bank's digital transformation</li>
+                           <li>Optimization of operational processes through intelligent automation</li>
+                           <li>Analysis of functional requirements and design of scalable technical solutions</li>`,
+                exp2Title: "Financial Applications Analyst Developer",
+                exp2Company: "BanReservas - Metaconxept",
+                exp2Date: "March 2019 - June 2021",
+                exp2Desc: `<li>User requirements gathering and formalization of technical proposals</li>
+                           <li>Development of applications and enhancements in C#.NET and VB.NET</li>
+                           <li>Development and optimization of Windows Services</li>
+                           <li>Advanced handling of applications in SQL Server and Oracle SQL Developer</li>
+                           <li>Creation of technical documentation: change control, internal testing, production deployment</li>
+                           <li>Elaboration of process diagrams for developed applications</li>
+                           <li>Creation of reports using SSRS (SQL Server Reporting Services)</li>`,
+                exp3Title: "Technology Manager",
+                exp3Company: "Oncoserv Santo Domingo",
+                exp3Date: "November 2014 - February 2019",
+                exp3Desc: `<li>Supervision and leadership of Development and Technical Support teams</li>
+                           <li>Comprehensive management of the institutional technology system, reducing response times by over 50%</li>
+                           <li>Analysis and validation of business systems (ERP, CRM, SAP), achieving a 30% reduction in response times</li>
+                           <li>Automation of administrative processes through automated reports</li>
+                           <li>Optimization of information presentation for administrators for faster and more efficient access</li>`,
+                educationTitle: "Education",
+                edu1Title: "Bachelor's Degree in Computer Science",
+                edu1Institution: "Autonomous University of Santo Domingo (UASD)",
+                edu1Location: "Santo Domingo, D.N., Dominican Republic",
+                edu1Desc: "Solid training in computer science fundamentals, programming, and technology systems management.",
+                edu2Title: "Technician in English",
+                edu2Institution: "English Immersion Program (MESCyT)",
+                edu2Location: "San Juan de la Maguana, Dominican Republic",
+                edu2Desc: "Technical English immersion program for technology professionals.",
+                edu3Title: "Technician in Computer Science",
+                edu3Institution: "Commercial Technical Institute (INCOTE)",
+                edu3Location: "San Juan de la Maguana, Dominican Republic",
+                edu3Desc: "Technical fundamentals in computer science and computational systems.",
+                skillsTitle: "Skills and Competencies",
+                skillCat1: "Specialized Platforms",
+                skill1_1: "Pega Platform", skill1_2: "Pega BPM", skill1_3: "ERP/CRM/SAP", skill1_4: "Business Process Management", skill1_5: "Workflow Automation",
+                skillCat2: "Programming Languages",
+                skill2_1: "C#.NET", skill2_2: "VB.NET", skill2_3: "C/C++", skill2_4: "Java", skill2_5: "Visual Basic", skill2_6: "PHP",
+                skillCat3: "Databases and Tools",
+                skill3_1: "SQL Server", skill3_2: "Oracle SQL Developer", skill3_3: "Firebird DBA", skill3_4: "SSRS", skill3_5: "HTML", skill3_6: "WordPress",
+                skillCat4: "Systems and Infrastructure",
+                skill4_1: "Windows Server 2008", skill4_2: "Active Directory", skill4_3: "DHCP", skill4_4: "Terminal Service", skill4_5: "Server Manager",
+                skillCat5: "Professional Competencies",
+                skill5_1: "Team Leadership", skill5_2: "Problem Solving", skill5_3: "Teamwork", skill5_4: "Initiative", skill5_5: "Autonomy", skill5_6: "Scrum Foundation",
+                skillCat6: "Languages",
+                skill6_1: "Spanish (Native)", skill6_2: "English (Advanced Technical)",
+                ctaTitle: "Interested in collaborating?",
+                ctaText: "I am always open to new opportunities and challenging projects. Let's connect and explore how I can add value to your organization!",
+                ctaEmail: "Send Email",
+                ctaLinkedIn: "Connect on LinkedIn",
+                ctaCV: "Download CV", 
+                footerText: "© 2025 Suheiri Beltre. All rights reserved." // Actualizado a 2025
+            }
+        };
+
+        const langEsButton = document.getElementById('lang-es');
+        const langEnButton = document.getElementById('lang-en');
+        const translatableElements = document.querySelectorAll('[data-translate-key]');
+        const downloadCvButton = document.getElementById('download-cv'); 
+
+        const cvLinkEs = "https://drive.google.com/uc?export=download&id=18dqNmcyXEie_oAH21QyaewbDnbsNfr-a"; 
+        const cvLinkEn = "https://drive.google.com/uc?export=download&id=11QvRfnbq5bwGHOLA_9Wv_O4Rwh-n7a8Q"; 
+
+        function setLanguage(lang) {
+            translatableElements.forEach(el => {
+                const key = el.getAttribute('data-translate-key');
+                if (translations[lang] && translations[lang][key]) {
+                    if (key.includes('Desc') && (key.startsWith('exp') || key.startsWith('edu'))) {
+                         el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+            document.documentElement.lang = lang;
+            localStorage.setItem('preferredLanguage', lang);
+
+            if (lang === 'es') {
+                langEsButton.classList.add('active');
+                langEnButton.classList.remove('active');
+                if (downloadCvButton) {
+                    downloadCvButton.href = cvLinkEs; 
+                }
+                if (document.documentElement.lang !== 'es') {
+                    document.documentElement.lang = 'es';
+                }
+            } else { 
+                langEnButton.classList.add('active');
+                langEsButton.classList.remove('active');
+                if (downloadCvButton) {
+                    downloadCvButton.href = cvLinkEn; 
+                }
+                if (document.documentElement.lang !== 'en') {
+                    document.documentElement.lang = 'en';
+                }
+            }
+        }
+
+        langEsButton.addEventListener('click', () => setLanguage('es'));
+        langEnButton.addEventListener('click', () => setLanguage('en'));
+
+        const preferredLanguage = localStorage.getItem('preferredLanguage');
+        if (preferredLanguage) {
+            setLanguage(preferredLanguage);
+        } else {
+            setLanguage('en'); 
+        }
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries, observerInstance) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observerInstance.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-animate').forEach(section => {
+            observer.observe(section);
+        });
+        
+    </script>
+</body>
+</html>
